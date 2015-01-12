@@ -1,4 +1,4 @@
-(function(Reflux, TodoActions, global) {
+(function(Reflux, TodoActions, global, UndoActions) {
     'use strict';
 
     // some variables and helpers for our fake database stuff
@@ -30,10 +30,23 @@
                 label: label
             }].concat(this.list));
         },
+        onRedoItem: function(item) {
+            this.updateList([{
+                key: todoCounter++,
+                created: item.created,
+                isComplete: item.isComplete,
+                label: item.label
+            }].concat(this.list));
+        },
         onRemoveItem: function(itemKey) {
+            UndoActions.addItem(_.filter(this.list, function(item){
+                return item.key === itemKey;
+            })[0]);
+            
             this.updateList(_.filter(this.list,function(item){
                 return item.key!==itemKey;
             }));
+            
         },
         onToggleItem: function(itemKey) {
             var foundItem = getItemByKey(this.list,itemKey);
@@ -82,4 +95,4 @@
         }
     });
 
-})(window.Reflux, window.TodoActions, window);
+})(window.Reflux, window.TodoActions, window, window.UndoActions);

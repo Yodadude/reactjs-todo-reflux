@@ -1,13 +1,22 @@
-(function(React, ReactRouter, Reflux, TodoActions, todoListStore, global) {
+(function(React, ReactRouter, Reflux, TodoActions, undoStore, global, UndoActions) {
 
 	// Renders the UNDO link
-    // Used in TodoApp
-    // Observe that the toogleall button is NOT rendered here, but in TodoMain (it is then moved up to the header with CSS)
     var TodoUndo = React.createClass({
+        mixins: [Reflux.connect(undoStore, "undo")],
+        getInitialState: function() {
+            return {
+                undo: []
+            };
+        },
         render: function() {
+            
+            var classes = React.addons.classSet({
+                hidden: this.state.undo.length === 0
+            });
+
             return (
-                <div id="undo">
-                    <a href="javascript:;" onClick={UndoActions.undoItem}>Undo!!</a>
+                <div id="undo" className={classes}>
+                    <a href="javascript:;" onClick={UndoActions.undoItem}>Undo</a>
                 </div>
             );
         }
@@ -15,5 +24,5 @@
 
     React.render(<TodoUndo />, document.getElementById('undocontainer'));
 
-})(window.React, window.ReactRouter, window.Reflux, window.TodoActions, window.todoListStore, window);
+})(window.React, window.ReactRouter, window.Reflux, window.TodoActions, window.undoStore, window, window.UndoActions);
 

@@ -9,12 +9,12 @@
         // this will set up listeners to all publishers in UndoActions, using onKeyname (or keyname) as callbacks
         listenables: [UndoActions],
         onUndoItem: function() {
-            debugger;
-            // TodoActions.undoItem2(undoStore.pop());
+            TodoActions.redoItem(undoStore.pop());
+            this.trigger(undoStore);
         },
         onAddItem: function(item) {
-            debugger;
             undoStore.push(item);
+            this.trigger(undoStore);
         }
     });
 

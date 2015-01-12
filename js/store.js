@@ -30,14 +30,18 @@
                 label: label
             }].concat(this.list));
         },
-        // onUndoItem2: function(item) {
-        //     this.updateList([item].concat(this.list));
-        // },
+        onRedoItem: function(item) {
+            this.updateList([{
+                key: todoCounter++,
+                created: item.created,
+                isComplete: item.isComplete,
+                label: item.label
+            }].concat(this.list));
+        },
         onRemoveItem: function(itemKey) {
-            // debugger;
             UndoActions.addItem(_.filter(this.list, function(item){
                 return item.key === itemKey;
-            }));
+            })[0]);
             
             this.updateList(_.filter(this.list,function(item){
                 return item.key!==itemKey;

@@ -12,7 +12,8 @@
         "removeItem",     // called by button in TodoItem
         "clearCompleted", // called by button in TodoFooter
         "editItem",       // called by finishing edit in TodoItem
-        "redoItem"        // called by undo in UndoActions
+        "redoItem",       // called by undo in UndoActions
+        "addMany"         // called by addMany in AddManyActions
     ]);
 
 })(window.Reflux, window);

@@ -31,9 +31,8 @@
             }].concat(this.list));
         },
         onAddMany: function(items) {
-            debugger;
             this.updateList(
-                items.map(function (item) {
+                items.filter(function (item) { return item.length > 0; }).map(function (item) {
                     return {
                         key: todoCounter++,
                         created: new Date(),
@@ -41,17 +40,6 @@
                         label: item
                     };
             }).concat(this.list));
-            // newItems.concat(this.list));
-            // var newItems = [];
-            // items.forEach(function (item) {
-            //     newItems.push({
-            //         key: todoCounter++,
-            //         created: item.created,
-            //         isComplete: item.isComplete,
-            //         label: item.label
-            //     });
-            // });
-            // this.updateList(newItems.concat(this.list));
         },
         onRedoItem: function(item) {
             this.updateList([{
